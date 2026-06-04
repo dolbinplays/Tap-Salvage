@@ -13,13 +13,24 @@
 }
 *{box-sizing:border-box} html,body{height:100%;margin:0;background:radial-gradient(circle at top,#25313a 0,#10161c 48%,#080b0e 100%);color:var(--text);}body{overflow-x:hidden}.app{max-width:980px;margin:0 auto;padding:10px 10px 92px;min-height:100dvh}.top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:4px 0 10px}.brand h1{font-size:clamp(26px,6vw,46px);line-height:1;margin:0;text-shadow:0 3px 0 #000}.brand p{margin:5px 0 0;color:var(--muted);font-size:14px}.version{border:1px solid var(--line);background:rgba(0,0,0,.18);border-radius:999px;padding:7px 11px;font-size:12px;color:#e8d9ad;white-space:nowrap}.tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px;position:sticky;top:0;z-index:10;background:linear-gradient(#111920,#111920cc);padding:6px 0}.tab{border:1px solid var(--line);border-radius:14px;padding:13px 10px;background:var(--panel2);color:var(--text);font-weight:900;font-size:16px;box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}.tab.active,.primary{background:linear-gradient(#ffc05a,#ec9f28);color:#1d1203;border-color:#ffd988;text-shadow:0 1px rgba(255,255,255,.35)}.grid{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}.card{background:linear-gradient(180deg,rgba(36,47,57,.96),rgba(17,24,31,.96));border:1px solid var(--line);border-radius:22px;padding:14px;box-shadow:0 14px 32px rgba(0,0,0,.25), inset 0 1px 0 rgba(255,255,255,.05)}.section-title{font-size:22px;margin:0 0 12px;text-shadow:0 2px #000}.sub{color:var(--muted);line-height:1.35}.resources{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:12px}.res{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:15px;padding:10px}.res b{display:block;font-size:12px;color:var(--muted);margin-bottom:3px}.res span{font-size:24px;font-weight:950}.scrap{color:var(--scrap)}.gears{color:var(--gears)}.wiring{color:var(--wiring)}.batteries{color:var(--batteries)}button{font:inherit;font-weight:900;border:1px solid var(--line);border-radius:16px;padding:12px 14px;background:var(--panel2);color:var(--text);box-shadow:0 4px 0 rgba(0,0,0,.25);cursor:pointer}button:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(0,0,0,.25)}button:disabled{opacity:.48;filter:grayscale(.3);cursor:not-allowed}.row{display:flex;gap:8px;flex-wrap:wrap}.room{border:1px solid var(--line);border-radius:18px;background:rgba(255,255,255,.04);padding:12px;margin-bottom:10px}.room-top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.room h3{margin:0;font-size:20px}.badge{font-size:12px;color:#211400;background:var(--gold2);border-radius:999px;padding:4px 8px;font-weight:950}.bar{height:16px;border-radius:999px;background:#111920;border:1px solid #33414d;overflow:hidden;margin:10px 0}.fill{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--green),#b7f35a);transition:width .25s}.fill.warn{background:linear-gradient(90deg,#ffbd49,#ffe16b)}.fill.bad{background:linear-gradient(90deg,var(--red),#ff9d79)}.cost{font-size:12px;color:var(--muted);margin:4px 0 10px}.adslot{border:1px dashed #9b7a3b;background:rgba(244,173,59,.08);color:#ffd98a;border-radius:15px;padding:10px;text-align:center;font-size:13px;margin-top:10px}.notice{border:1px solid rgba(255,211,110,.45);background:rgba(244,173,59,.11);border-radius:16px;padding:11px;margin:10px 0;color:#ffe2a2}.danger{border-color:rgba(239,91,91,.55);background:rgba(239,91,91,.10);color:#ffb0a8}.salvage-wrap{display:grid;grid-template-columns:1fr 310px;gap:12px}.salvage-board{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;touch-action:manipulation;user-select:none}.tile{aspect-ratio:1/1;border-radius:16px;border:1px solid #3b4652;background:linear-gradient(#1d2730,#111820);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:950;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 4px 0 rgba(0,0,0,.25);overflow:hidden}.tile.hidden:before{content:"";width:38%;height:38%;border-radius:8px;background:rgba(255,255,255,.05);display:block}.tile.revealed{background:linear-gradient(#273440,#1b242c);animation:pop .16s ease}.tile.bonus{box-shadow:0 0 0 2px rgba(255,211,110,.45),0 0 22px rgba(255,211,110,.18),inset 0 1px 0 rgba(255,255,255,.08)}.tile.scrapT{border-color:var(--scrap)}.tile.gearsT{border-color:var(--gears)}.tile.wiringT{border-color:var(--wiring)}.tile.batteriesT{border-color:var(--batteries)}.tile.hazardT{border-color:var(--red);color:#ff9b8e}.tile.cacheT{border-color:var(--gold2);color:var(--gold2)}.tile.emptyT{border-color:#6c7780;color:#86919a}.tile .spark{position:absolute;inset:0;background:radial-gradient(circle at center,rgba(255,255,255,.22),transparent 60%);opacity:.5;pointer-events:none}@keyframes pop{from{transform:scale(.88)}to{transform:scale(1)}}.statgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}.stat{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:15px;padding:10px}.stat b{display:block;font-size:12px;color:var(--muted)}.stat span{font-size:26px;font-weight:950}.log{max-height:190px;overflow:auto;background:rgba(0,0,0,.16);border-radius:14px;padding:8px;margin-top:10px;font-size:13px;color:#d9dedf}.log p{margin:0 0 7px}.screen{display:none}.screen.active{display:block}.summary{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.72);z-index:50;padding:18px}.summary.show{display:flex}.modal{width:min(540px,100%);max-height:calc(100dvh - 40px);overflow:auto;background:linear-gradient(#25303a,#121a21);border:1px solid #546371;border-radius:24px;padding:18px;box-shadow:0 24px 80px rgba(0,0,0,.7)}.modal h2{font-size:30px;line-height:1;margin:0 0 10px}.modal .resources{grid-template-columns:repeat(2,1fr)}.footer-note{font-size:13px;color:var(--muted);margin-top:8px}.pill{display:inline-block;border:1px solid var(--line);background:rgba(255,255,255,.05);border-radius:999px;padding:5px 9px;color:var(--muted);font-size:12px}.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px}.locations{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}.loc{padding:10px;border-radius:14px;min-height:84px;text-align:left}.loc.active{background:linear-gradient(#ffc05a,#ec9f28);color:#1d1203;border-color:#ffd988}.loc b{display:block}.loc small{display:block;font-weight:700;opacity:.8;margin-top:4px}.reveal-banner{min-height:48px;border:1px solid var(--line);background:rgba(255,255,255,.055);border-radius:16px;padding:10px;margin:10px 0;font-weight:900}.goal-list{display:grid;gap:7px}.goal{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:14px;padding:8px}.goal.done{border-color:rgba(101,214,110,.5);background:rgba(101,214,110,.08)}
 @media(max-width:760px){.app{padding:8px 8px calc(86px + env(safe-area-inset-bottom))}.top{align-items:flex-start}.version{font-size:11px}.tabs{gap:5px}.tab{padding:11px 5px;font-size:14px}.grid,.salvage-wrap{grid-template-columns:1fr}.resources{grid-template-columns:repeat(2,1fr)}.card{padding:12px;border-radius:20px}.salvage-board{gap:6px}.tile{border-radius:12px;font-size:22px}.salvage-side{order:-1}.statgrid{grid-template-columns:repeat(4,1fr)}.stat{padding:8px}.stat span{font-size:20px}.stat b{font-size:11px}.sticky-actions{position:fixed;left:0;right:0;bottom:0;padding:10px 10px calc(10px + env(safe-area-inset-bottom));background:linear-gradient(transparent,rgba(8,11,14,.95) 24%,#080b0e);z-index:20}.sticky-actions .row{display:grid;grid-template-columns:1fr 1fr}.sticky-actions button{min-height:56px}.adslot{font-size:12px}.log{max-height:120px}.section-title{font-size:20px}.locations{grid-template-columns:1fr}.loc{min-height:unset}.modal{max-height:calc(100dvh - 24px);padding-bottom:calc(18px + env(safe-area-inset-bottom))}}
+/* Roadmap v0.2 additions */
+.adbutton{width:100%;margin-top:10px;border-color:#ffd36e;background:linear-gradient(#3a2b14,#23190e);color:#ffe2a2}
+.adbutton.primary{background:linear-gradient(#ffc05a,#ec9f28);color:#1d1203}
+.tile.peek:after{content:"?";position:absolute;right:7px;top:5px;color:#ffd36e;font-size:13px;text-shadow:0 1px #000}
+.checklist{display:grid;gap:7px}
+.check{border:1px solid var(--line);background:rgba(255,255,255,.045);border-radius:14px;padding:8px}
+.check.done{border-color:rgba(101,214,110,.5);background:rgba(101,214,110,.08)}
+.metrics{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.metric{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:14px;padding:9px}
+.metric b{display:block;color:var(--muted);font-size:11px}
+.metric span{font-size:20px;font-weight:950}
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
     <div class="brand"><h1>Scrap Shelter Lite</h1><p>Tap-to-salvage MVP branch: faster Android ROI test.</p></div>
-    <div class="version" id="versionLabel">v0.26.06.04.0318 · Stage 1B Salvage Feedback</div>
+    <div class="version" id="versionLabel">v0.26.06.04.0600 · Stage 1C Daily Hooks</div>
   </header>
   <nav class="tabs">
     <button class="tab active" data-screen="base">Base</button>
@@ -33,13 +44,15 @@
         <h2 class="section-title">Shelter Systems</h2>
         <p class="sub">Keep the base running with parts from quick salvage runs. Rooms wear down after salvage runs and can be repaired or upgraded.</p>
         <div id="urgentPrompt"></div>
+        <div id="firstSessionPanel"></div>
         <div id="rooms"></div>
       </div>
       <aside class="card">
         <h2 class="section-title">Inventory</h2>
         <div class="resources" id="resourcePanel"></div>
         <button class="primary" onclick="showScreen('salvage')">Start Salvage Run</button>
-        <div class="adslot">Future rewarded ad: emergency repair crate. Disabled in prototype.</div>
+        <div id="dailyPanel"></div>
+        <button class="adbutton" onclick="mockEmergencyCrate()">Mock Rewarded Ad: Emergency Crate</button>
         <h2 class="section-title" style="margin-top:18px">Base Notes</h2>
         <div class="log" id="baseLog"></div>
       </aside>
@@ -70,7 +83,7 @@
             <div class="stat"><b>Total</b><span id="runTotal">0</span></div>
           </div>
           <div class="resources" id="runResourcePanel" style="margin-top:10px"></div>
-          <div class="adslot">Future rewarded ad: double this salvage payout after run summary.</div>
+          <div class="adslot">Mock rewarded ad is available on the run summary after you claim a useful haul.</div>
           <h3>Run Goals</h3>
           <div class="goal-list" id="goalPanel"></div>
           <h3>Payout Log</h3>
@@ -87,6 +100,9 @@
       <div class="room"><h3>Why this branch exists</h3><p class="sub">This Lite branch tests the original fast-MVP goal: a very simple mobile salvage action feeding a shelter repair loop. The block-placement puzzle remains a full-game branch for later.</p></div>
       <div class="room"><h3>Current MVP Target</h3><p class="sub">Test whether players understand: <b>tap salvage → collect parts → repair rooms → watch optional rewarded ad later for extra salvage</b>.</p></div>
       <div class="room"><h3>Stage 1B Additions</h3><p class="sub">This build adds salvage locations, clearer reveal feedback, small run goals, stronger summary details, and repair-need prompts.</p></div>
+      <div class="room"><h3>Test Metrics</h3><div class="metrics" id="metricsPanel"></div></div>
+      <div class="room"><h3>Achievements</h3><div class="checklist" id="achievementsPanel"></div></div>
+      <div class="row"><button onclick="resetPrototype()">Reset Prototype Data</button></div>
     </div>
   </section>
 </div>
@@ -97,7 +113,7 @@
     <p class="sub" id="summaryText">Recovered parts are ready to move into base inventory.</p>
     <div class="resources" id="summaryResources"></div>
     <div class="goal-list" id="summaryStats"></div>
-    <div class="adslot">Future rewarded ad: Double salvage payout. Disabled in prototype.</div>
+    <button class="adbutton primary" id="doubleAdBtn" onclick="mockDoubleSalvage()">Mock Rewarded Ad: Double Salvage</button>
     <div class="row" style="margin-top:12px">
       <button class="primary" onclick="claimRun()">Claim Salvage & Return</button>
       <button onclick="closeSummary()">Keep Salvaging</button>
@@ -106,7 +122,7 @@
 </div>
 
 <script>
-const VERSION = 'v0.26.06.04.0318';
+const VERSION = 'v0.26.06.04.0600';
 const SAVE_KEY = 'scrapShelterLite_'+VERSION;
 const RES = ['scrap','gears','wiring','batteries'];
 const icons = {scrap:'▣',gears:'⚙',wiring:'⌁',batteries:'▮',hazard:'⚠',cache:'★',empty:'·'};
@@ -116,39 +132,340 @@ const locations = {
   garage:{name:'Abandoned Garage',desc:'More gears and batteries. More rust.',picks:14,tool:96,deck:{scrap:6,gears:6,wiring:3,batteries:4,cache:3,hazard:3,empty:0},goal:'Find 3+ Gears or Batteries.'},
   appliance:{name:'Appliance Heap',desc:'More wiring. Some dead tiles.',picks:16,tool:100,deck:{scrap:6,gears:3,wiring:7,batteries:3,cache:2,hazard:2,empty:2},goal:'Find 4+ Wiring.'}
 };
-let state = {resources:{scrap:10,gears:2,wiring:2,batteries:1},selectedLocation:'junkyard',rooms:{workshop:{name:'Workshop',level:1,condition:82,desc:'Improves repair efficiency and keeps tools usable.',repair:{scrap:4,gears:1},upgrade:{scrap:18,gears:6,wiring:2}},generator:{name:'Generator',level:1,condition:72,desc:'Powers the base. Low condition makes all systems unstable.',repair:{scrap:5,gears:2,wiring:1,batteries:1},upgrade:{scrap:22,gears:7,wiring:5,batteries:3}},water:{name:'Water Filter',level:1,condition:76,desc:'Keeps survivors stable. Low condition reduces morale.',repair:{scrap:4,wiring:2,batteries:1},upgrade:{scrap:20,gears:3,wiring:6,batteries:2}}},baseLog:['Lite Stage 1B started: Salvage feedback and location choices added.'],run:null};
+const defaultState = {
+  resources:{scrap:10,gears:2,wiring:2,batteries:1},
+  selectedLocation:'junkyard',
+  rooms:{
+    workshop:{name:'Workshop',level:1,condition:82,desc:'Improves repair efficiency and keeps tools usable.',repair:{scrap:4,gears:1},upgrade:{scrap:18,gears:6,wiring:2}},
+    generator:{name:'Generator',level:1,condition:72,desc:'Powers the base. Low condition makes all systems unstable.',repair:{scrap:5,gears:2,wiring:1,batteries:1},upgrade:{scrap:22,gears:7,wiring:5,batteries:3}},
+    water:{name:'Water Filter',level:1,condition:76,desc:'Keeps survivors stable. Low condition reduces morale.',repair:{scrap:4,wiring:2,batteries:1},upgrade:{scrap:20,gears:3,wiring:6,batteries:2}}
+  },
+  stats:{runs:0,repairs:0,upgrades:0,mockAds:0,doubleAds:0,crates:0,bestRun:0,goalBonuses:0,dailyCrates:0},
+  achievements:{},
+  lastDaily:'',
+  baseLog:['Lite Stage 1C started: daily hooks, achievements, run bonuses, and test metrics added.'],
+  run:null
+};
+function clone(obj){return JSON.parse(JSON.stringify(obj));}
+let state = clone(defaultState);
+
 function clamp(n,min,max){return Math.max(min,Math.min(max,n));}
 function fmtCost(cost){return Object.entries(cost).map(([k,v])=>`${v} ${names[k]}`).join(' · ');}
+function fmtReward(cost){const entries=Object.entries(cost).filter(([,v])=>v>0); return entries.length?entries.map(([k,v])=>`${v} ${names[k]}`).join(' · '):'none';}
 function canPay(cost){return Object.entries(cost).every(([k,v])=>state.resources[k]>=v);}
 function pay(cost){Object.entries(cost).forEach(([k,v])=>state.resources[k]-=v);}
 function addResources(obj){Object.entries(obj).forEach(([k,v])=>{if(RES.includes(k))state.resources[k]+=v;});}
 function total(obj){return RES.reduce((a,k)=>a+(obj[k]||0),0);}
 function rand(n){return Math.floor(Math.random()*n)}
+function roomLevel(id){return state.rooms[id]?.level||1;}
+function workshopPickBonus(){return Math.max(0,roomLevel('workshop')-1);}
+function workshopHazardBlock(){return Math.max(0,(roomLevel('workshop')-1)*3);}
+function generatorWearReduction(){return Math.min(.35,Math.max(0,(roomLevel('generator')-1)*.08));}
+function waterWearReduction(){return Math.min(.35,Math.max(0,(roomLevel('water')-1)*.08));}
+function repairBoost(){return 32+roomLevel('workshop')*3;}
+function todayKey(){return new Date().toISOString().slice(0,10);}
+function dailyReady(){return state.lastDaily!==todayKey();}
 function save(){localStorage.setItem(SAVE_KEY,JSON.stringify(state));}
-function load(){try{const raw=localStorage.getItem(SAVE_KEY); if(raw){state=JSON.parse(raw); if(!state.selectedLocation)state.selectedLocation='junkyard';}}catch(e){console.warn(e)}}
+function migrateState(){
+  state.resources = {...defaultState.resources,...(state.resources||{})};
+  state.rooms = {...defaultState.rooms,...(state.rooms||{})};
+  Object.keys(defaultState.rooms).forEach(id=>state.rooms[id]={...defaultState.rooms[id],...(state.rooms[id]||{})});
+  state.stats = {...defaultState.stats,...(state.stats||{})};
+  state.achievements = {...(state.achievements||{})};
+  state.lastDaily = state.lastDaily || '';
+  state.baseLog = Array.isArray(state.baseLog)&&state.baseLog.length?state.baseLog:defaultState.baseLog.slice();
+  state.selectedLocation = state.selectedLocation || 'junkyard';
+  if(state.run) state.run = null;
+}
+function load(){try{const raw=localStorage.getItem(SAVE_KEY); if(raw) state=JSON.parse(raw); migrateState();}catch(e){console.warn(e); state=clone(defaultState);}}
 function showScreen(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('active',t.dataset.screen===id)); if(id==='salvage'&&!state.run)newRun(false); render();}
 document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>showScreen(t.dataset.screen)));
+
 function resourceHTML(source){return RES.map(k=>`<div class="res"><b>${icons[k]} ${names[k]}</b><span class="${k}">${source[k]||0}</span></div>`).join('');}
 function renderResources(){document.getElementById('resourcePanel').innerHTML=resourceHTML(state.resources);document.getElementById('inventoryPanel').innerHTML=resourceHTML(state.resources); if(state.run)document.getElementById('runResourcePanel').innerHTML=resourceHTML(state.run.found);}
 function mostUrgentRoom(){return Object.entries(state.rooms).sort((a,b)=>a[1].condition-b[1].condition)[0];}
-function renderUrgentPrompt(){const [id,r]=mostUrgentRoom(); const cond=Math.round(r.condition); const el=document.getElementById('urgentPrompt'); if(cond>=65){el.innerHTML='<div class="notice">Base status: systems are holding. Run salvage to stockpile repair parts before wear catches up.</div>';return;} const cls=cond<35?'notice danger':'notice'; el.innerHTML=`<div class="${cls}">Repair prompt: ${r.name} is at <b>${cond}%</b>. Need ${fmtCost(r.repair)}. <button onclick="showScreen('salvage')" style="margin-top:8px">Salvage Needed Parts</button></div>`;}
-function renderRooms(){renderUrgentPrompt();const el=document.getElementById('rooms'); el.innerHTML=Object.entries(state.rooms).map(([id,r])=>{const cond=Math.round(r.condition); const cls=cond<30?'bad':cond<60?'warn':''; return `<div class="room"><div class="room-top"><div><h3>${r.name}</h3><span class="sub">${r.desc}</span></div><span class="badge">Lv ${r.level}</span></div><div class="bar"><div class="fill ${cls}" style="width:${cond}%"></div></div><div class="sub"><b>Condition:</b> ${cond}% · ${cond>69?'Stable':cond>39?'Worn':cond>0?'Damaged':'Offline'}</div><div class="cost"><b>Repair:</b> ${fmtCost(r.repair)}</div><div class="row"><button onclick="repairRoom('${id}')" ${canPay(r.repair)&&cond<100?'':'disabled'}>Repair</button><button onclick="upgradeRoom('${id}')" ${canPay(r.upgrade)?'':'disabled'}>Upgrade · ${fmtCost(r.upgrade)}</button></div></div>`}).join('');}
+function renderUrgentPrompt(){
+  const [id,r]=mostUrgentRoom();
+  const cond=Math.round(r.condition);
+  const el=document.getElementById('urgentPrompt');
+  if(cond>=65){el.innerHTML='<div class="notice">Base status: systems are holding. Run salvage to stockpile repair parts before wear catches up.</div>';return;}
+  const cls=cond<35?'notice danger':'notice';
+  el.innerHTML=`<div class="${cls}">Repair prompt: ${r.name} is at <b>${cond}%</b>. Need ${fmtCost(r.repair)}. <button onclick="showScreen('salvage')" style="margin-top:8px">Salvage Needed Parts</button></div>`;
+}
+function roomEffect(id){
+  if(id==='workshop') return `Effect: +${workshopPickBonus()} pick(s), ${workshopHazardBlock()} less hazard damage, +${repairBoost()-32} repair strength.`;
+  if(id==='generator') return `Effect: ${Math.round(generatorWearReduction()*100)}% lower room wear and level 2+ marks one promising tile.`;
+  return `Effect: ${Math.round(waterWearReduction()*100)}% lower room wear and better emergency crate batteries.`;
+}
+function renderRooms(){
+  renderUrgentPrompt();
+  renderFirstSession();
+  const el=document.getElementById('rooms');
+  el.innerHTML=Object.entries(state.rooms).map(([id,r])=>{
+    const cond=Math.round(r.condition);
+    const cls=cond<30?'bad':cond<60?'warn':'';
+    return `<div class="room"><div class="room-top"><div><h3>${r.name}</h3><span class="sub">${r.desc}</span></div><span class="badge">Lv ${r.level}</span></div><div class="bar"><div class="fill ${cls}" style="width:${cond}%"></div></div><div class="sub"><b>Condition:</b> ${cond}% · ${cond>69?'Stable':cond>39?'Worn':cond>0?'Damaged':'Offline'}</div><div class="cost"><b>Repair:</b> ${fmtCost(r.repair)}</div><div class="cost"><b>${roomEffect(id)}</b></div><div class="row"><button onclick="repairRoom('${id}')" ${canPay(r.repair)&&cond<100?'':'disabled'}>Repair</button><button onclick="upgradeRoom('${id}')" ${canPay(r.upgrade)?'':'disabled'}>Upgrade · ${fmtCost(r.upgrade)}</button></div></div>`;
+  }).join('');
+}
+function renderFirstSession(){
+  const tasks=[
+    ['Start one salvage run',state.stats.runs>0 || !!state.run],
+    ['Claim one salvage haul',state.stats.runs>0],
+    ['Repair one room',state.stats.repairs>0],
+    ['Upgrade one room',state.stats.upgrades>0],
+    ['Tap one mock rewarded ad',state.stats.mockAds>0]
+  ];
+  document.getElementById('firstSessionPanel').innerHTML=`<div class="notice"><b>First-session test</b><div class="checklist" style="margin-top:8px">${tasks.map(([label,done])=>`<div class="check ${done?'done':''}">${done?'✓':'•'} ${label}</div>`).join('')}</div></div>`;
+}
+function renderMetrics(){
+  const el=document.getElementById('metricsPanel');
+  if(!el)return;
+  const metrics=[
+    ['Runs',state.stats.runs],
+    ['Repairs',state.stats.repairs],
+    ['Upgrades',state.stats.upgrades],
+    ['Mock ads',state.stats.mockAds],
+    ['Doubles',state.stats.doubleAds],
+    ['Best run',state.stats.bestRun],
+    ['Goal bonuses',state.stats.goalBonuses],
+    ['Daily crates',state.stats.dailyCrates]
+  ];
+  el.innerHTML=metrics.map(([k,v])=>`<div class="metric"><b>${k}</b><span>${v}</span></div>`).join('');
+}
+function achievementList(){
+  return [
+    {id:'first_run',label:'First Haul',done:state.stats.runs>=1},
+    {id:'three_runs',label:'Three Runs Deep',done:state.stats.runs>=3},
+    {id:'first_repair',label:'Patch Job',done:state.stats.repairs>=1},
+    {id:'first_upgrade',label:'Better Than Before',done:state.stats.upgrades>=1},
+    {id:'big_haul',label:'Heavy Pockets',done:state.stats.bestRun>=20},
+    {id:'ad_tester',label:'Optional Boost Tested',done:state.stats.mockAds>=1},
+    {id:'daily_checkin',label:'Checked In Today',done:state.stats.dailyCrates>=1}
+  ];
+}
+function updateAchievements(){
+  achievementList().forEach(a=>{
+    if(a.done&&!state.achievements[a.id]){
+      state.achievements[a.id]=true;
+      state.baseLog.push(`Achievement unlocked: ${a.label}.`);
+    }
+  });
+}
+function renderAchievements(){
+  const el=document.getElementById('achievementsPanel');
+  if(!el)return;
+  el.innerHTML=achievementList().map(a=>`<div class="check ${a.done?'done':''}">${a.done?'✓':'•'} ${a.label}</div>`).join('');
+}
+function renderDaily(){
+  const el=document.getElementById('dailyPanel');
+  const ready=dailyReady();
+  el.innerHTML=`<div class="notice"><b>Daily Salvage Crate</b><div class="sub">${ready?'One small return bonus is ready.':'Claimed for today. Come back tomorrow.'}</div><button class="adbutton ${ready?'primary':''}" onclick="claimDailyCrate()" ${ready?'':'disabled'}>${ready?'Claim Daily Crate':'Daily Crate Claimed'}</button></div>`;
+}
 function renderLog(){document.getElementById('baseLog').innerHTML=state.baseLog.slice(-8).reverse().map(x=>`<p>${x}</p>`).join('')||'<p>No events yet.</p>';}
-function repairRoom(id){const r=state.rooms[id]; if(!canPay(r.repair)||r.condition>=100)return; pay(r.repair); r.condition=clamp(r.condition+32+state.rooms.workshop.level*2,0,100); state.baseLog.push(`${r.name} repaired to ${Math.round(r.condition)}%.`); save(); render();}
-function upgradeRoom(id){const r=state.rooms[id]; if(!canPay(r.upgrade))return; pay(r.upgrade); r.level++; r.condition=clamp(r.condition+15,0,100); Object.keys(r.upgrade).forEach(k=>r.upgrade[k]=Math.ceil(r.upgrade[k]*1.55)); state.baseLog.push(`${r.name} upgraded to level ${r.level}.`); save(); render();}
-function degradeRooms(){Object.values(state.rooms).forEach(r=>{const wear=3.0+(r.level*.35); r.condition=clamp(r.condition-wear,0,100);});}
+function repairRoom(id){
+  const r=state.rooms[id];
+  if(!canPay(r.repair)||r.condition>=100)return;
+  pay(r.repair);
+  r.condition=clamp(r.condition+repairBoost(),0,100);
+  state.stats.repairs++;
+  state.baseLog.push(`${r.name} repaired to ${Math.round(r.condition)}%.`);
+  save();
+  render();
+}
+function upgradeRoom(id){
+  const r=state.rooms[id];
+  if(!canPay(r.upgrade))return;
+  pay(r.upgrade);
+  r.level++;
+  r.condition=clamp(r.condition+15,0,100);
+  Object.keys(r.upgrade).forEach(k=>r.upgrade[k]=Math.ceil(r.upgrade[k]*1.55));
+  state.stats.upgrades++;
+  state.baseLog.push(`${r.name} upgraded to level ${r.level}. ${roomEffect(id)}`);
+  save();
+  render();
+}
+function degradeRooms(){
+  const reduction=generatorWearReduction()+waterWearReduction();
+  Object.values(state.rooms).forEach(r=>{
+    const wear=3.2*(1-reduction);
+    r.condition=clamp(r.condition-wear,0,100);
+  });
+}
+function mockEmergencyCrate(){
+  const [id,r]=mostUrgentRoom();
+  const crate={scrap:3+rand(3),gears:id==='workshop'||id==='generator'?1:0,wiring:id==='water'||id==='generator'?1:0,batteries:id==='water'?Math.max(1,roomLevel('water')-1):rand(2)};
+  addResources(crate);
+  state.stats.mockAds++;
+  state.stats.crates++;
+  state.baseLog.push(`Mock ad crate opened for ${r.name}: +${total(crate)} parts.`);
+  save();
+  render();
+}
+function claimDailyCrate(){
+  if(!dailyReady())return;
+  const crate={scrap:5,gears:1,wiring:1,batteries:roomLevel('water')>1?1:0};
+  addResources(crate);
+  state.lastDaily=todayKey();
+  state.stats.dailyCrates++;
+  state.baseLog.push(`Daily salvage crate claimed: +${total(crate)} parts.`);
+  updateAchievements();
+  save();
+  render();
+}
+function resetPrototype(){
+  if(!confirm('Reset all local prototype data for this build?')) return;
+  state=clone(defaultState);
+  localStorage.removeItem(SAVE_KEY);
+  save();
+  showScreen('base');
+}
 function selectLocation(id){if(state.run && state.run.revealed>0){if(!confirm('Start a new run at this location and abandon current unclaimed salvage?')) return;} state.selectedLocation=id; newRun(false);}
 function renderLocations(){const el=document.getElementById('locationPanel'); el.innerHTML=Object.entries(locations).map(([id,l])=>`<button class="loc ${state.selectedLocation===id?'active':''}" onclick="selectLocation('${id}')"><b>${l.name}</b><small>${l.desc}</small></button>`).join('');}
-function makeDeck(locationId){const loc=locations[locationId]||locations.junkyard; let deck=[]; Object.entries(loc.deck).forEach(([type,count])=>{for(let i=0;i<count;i++)deck.push(type)}); deck=deck.sort(()=>Math.random()-.5); return deck.slice(0,25).map((type,i)=>({id:i,type,revealed:false,qty:0,bonus:false}));}
-function newRun(confirmAbandon){ if(confirmAbandon && state.run && total(state.run.found)>0 && !confirm('Abandon this unclaimed salvage?')) return; const loc=locations[state.selectedLocation]||locations.junkyard; state.run={location:state.selectedLocation,picks:loc.picks,tool:loc.tool,found:{scrap:0,gears:0,wiring:0,batteries:0},tiles:makeDeck(state.selectedLocation),revealed:0,hazards:0,caches:0,empties:0,lastType:null,streak:0,bestFind:0,banner:`${loc.name}: tap junk tiles to uncover salvage.`,log:[`${loc.name} run started. ${loc.goal}`]}; render();}
-function revealTile(i){const run=state.run;if(!run||run.picks<=0||run.tool<=0)return;const tile=run.tiles[i]; if(!tile||tile.revealed)return; tile.revealed=true; run.picks--; run.revealed++; let msg='', banner='', gained=0; if(tile.type==='hazard'){run.tool=clamp(run.tool-16-rand(8),0,100); run.hazards++; run.streak=0; run.lastType=null; msg='⚠ Rust snag! Tool condition dropped.'; banner='Rust snag! The tool takes damage.';} else if(tile.type==='empty'){run.empties++; run.streak=0; run.lastType=null; msg='· Dead junk. Nothing useful here.'; banner='Dead junk. No parts recovered.';} else if(tile.type==='cache'){const rewards={scrap:2+rand(3),gears:rand(2),wiring:rand(2),batteries:rand(2)}; RES.forEach(k=>run.found[k]+=rewards[k]); run.caches++; gained=total(rewards); run.bestFind=Math.max(run.bestFind,gained); run.streak=0; run.lastType=null; msg=`★ Cache found: +${gained} mixed parts.`; banner=`Cache found! +${gained} mixed parts.`;} else {let qty= tile.type==='scrap'? 1+rand(3) : 1; if(Math.random()<0.20) qty++; if(run.lastType===tile.type){run.streak++;}else{run.streak=1;run.lastType=tile.type;} if(run.streak>=3){qty++; tile.bonus=true; msg=`${icons[tile.type]} +${qty} ${names[tile.type]} · streak bonus!`; banner=`Streak bonus! +${qty} ${names[tile.type]}.`;}else{msg=`${icons[tile.type]} +${qty} ${names[tile.type]}.`; banner=`Recovered +${qty} ${names[tile.type]}.`;} tile.qty=qty; run.found[tile.type]+=qty; gained=qty; run.bestFind=Math.max(run.bestFind,gained);} run.banner=banner; run.log.push(msg); if(run.picks<=0) run.log.push('No picks left. Claim salvage or start a new run.'); if(run.tool<=0) run.log.push('Tool is worn out. Claim what you found.'); render();}
-function renderSalvage(){renderLocations();if(!state.run)return; const run=state.run; document.getElementById('revealBanner').textContent=run.banner||'Tap hidden junk tiles to uncover parts.'; document.getElementById('salvageBoard').innerHTML=run.tiles.map((t,i)=>{let cls='tile '+(t.revealed?'revealed ':'hidden '); let content=''; if(t.revealed){cls+=t.type+'T '; if(t.bonus)cls+='bonus '; content=t.type==='cache'?icons.cache:t.type==='hazard'?icons.hazard:t.type==='empty'?icons.empty:icons[t.type]; if(t.qty>1) content+=`<small style="position:absolute;right:7px;bottom:5px;font-size:12px">x${t.qty}</small>`; if(t.bonus) content+='<span class="spark"></span>';} return `<button class="${cls}" onclick="revealTile(${i})" ${t.revealed||run.picks<=0||run.tool<=0?'disabled':''}>${content}</button>`}).join(''); document.getElementById('picksLeft').textContent=run.picks; document.getElementById('toolCond').textContent=Math.round(run.tool)+'%'; document.getElementById('tilesFound').textContent=run.revealed; document.getElementById('runTotal').textContent=total(run.found); document.getElementById('runLog').innerHTML=run.log.slice(-8).reverse().map(x=>`<p>${x}</p>`).join(''); document.getElementById('claimBtn').disabled=total(run.found)<=0; renderGoals();}
-function renderGoals(){const run=state.run; if(!run)return; const loc=locations[run.location]||locations.junkyard; const goals=[{label:loc.goal,done:goalDone(run.location,run)},{label:'Recover at least 8 total salvage',done:total(run.found)>=8},{label:'Keep tool above 50%',done:run.tool>50}]; document.getElementById('goalPanel').innerHTML=goals.map(g=>`<div class="goal ${g.done?'done':''}">${g.done?'✓':'•'} ${g.label}</div>`).join('');}
+function makeDeck(locationId){
+  const loc=locations[locationId]||locations.junkyard;
+  let deck=[];
+  Object.entries(loc.deck).forEach(([type,count])=>{for(let i=0;i<count;i++)deck.push(type)});
+  deck=deck.sort(()=>Math.random()-.5);
+  return deck.slice(0,25).map((type,i)=>({id:i,type,revealed:false,qty:0,bonus:false,peek:false}));
+}
+function markGeneratorPeek(run){
+  if(roomLevel('generator')<2)return;
+  const candidates=run.tiles.filter(t=>!['hazard','empty'].includes(t.type));
+  if(!candidates.length)return;
+  candidates[rand(candidates.length)].peek=true;
+  run.log.push('Generator signal marked one promising tile.');
+}
+function newRun(confirmAbandon){
+  if(confirmAbandon && state.run && total(state.run.found)>0 && !confirm('Abandon this unclaimed salvage?')) return;
+  const loc=locations[state.selectedLocation]||locations.junkyard;
+  state.run={location:state.selectedLocation,picks:loc.picks+workshopPickBonus(),tool:clamp(loc.tool+workshopPickBonus()*2,0,100),found:{scrap:0,gears:0,wiring:0,batteries:0},tiles:makeDeck(state.selectedLocation),revealed:0,hazards:0,caches:0,empties:0,lastType:null,streak:0,bestFind:0,adDoubled:false,banner:`${loc.name}: tap junk tiles to uncover salvage.`,log:[`${loc.name} run started. ${loc.goal}`]};
+  markGeneratorPeek(state.run);
+  render();
+}
+function revealTile(i){
+  const run=state.run;if(!run||run.picks<=0||run.tool<=0)return;
+  const tile=run.tiles[i]; if(!tile||tile.revealed)return;
+  tile.revealed=true; run.picks--; run.revealed++;
+  let msg='', banner='', gained=0;
+  if(tile.type==='hazard'){
+    const damage=Math.max(6,16+rand(8)-workshopHazardBlock());
+    run.tool=clamp(run.tool-damage,0,100);
+    run.hazards++; run.streak=0; run.lastType=null;
+    msg=`⚠ Rust snag! Tool condition dropped ${damage}%.`;
+    banner=`Rust snag! Tool takes ${damage}% damage.`;
+  } else if(tile.type==='empty'){
+    run.empties++; run.streak=0; run.lastType=null;
+    msg='· Dead junk. Nothing useful here.';
+    banner='Dead junk. No parts recovered.';
+  } else if(tile.type==='cache'){
+    const rewards={scrap:2+rand(3),gears:rand(2),wiring:rand(2),batteries:rand(2)};
+    RES.forEach(k=>run.found[k]+=rewards[k]);
+    run.caches++; gained=total(rewards); run.bestFind=Math.max(run.bestFind,gained);
+    run.streak=0; run.lastType=null;
+    msg=`★ Cache found: +${gained} mixed parts.`;
+    banner=`Cache found! +${gained} mixed parts.`;
+  } else {
+    let qty= tile.type==='scrap'? 1+rand(3) : 1;
+    if(Math.random()<0.20) qty++;
+    if(run.lastType===tile.type){run.streak++;}else{run.streak=1;run.lastType=tile.type;}
+    if(run.streak>=3){qty++; tile.bonus=true; msg=`${icons[tile.type]} +${qty} ${names[tile.type]} · streak bonus!`; banner=`Streak bonus! +${qty} ${names[tile.type]}.`;}
+    else{msg=`${icons[tile.type]} +${qty} ${names[tile.type]}.`; banner=`Recovered +${qty} ${names[tile.type]}.`;}
+    tile.qty=qty; run.found[tile.type]+=qty; gained=qty; run.bestFind=Math.max(run.bestFind,gained);
+  }
+  run.banner=banner;
+  run.log.push(msg);
+  if(run.picks<=0) run.log.push('No picks left. Claim salvage or start a new run.');
+  if(run.tool<=0) run.log.push('Tool is worn out. Claim what you found.');
+  render();
+}
+function renderSalvage(){
+  renderLocations();
+  if(!state.run)return;
+  const run=state.run;
+  document.getElementById('revealBanner').textContent=run.banner||'Tap hidden junk tiles to uncover parts.';
+  document.getElementById('salvageBoard').innerHTML=run.tiles.map((t,i)=>{
+    let cls='tile '+(t.revealed?'revealed ':'hidden ')+(t.peek&&!t.revealed?'peek ':'');
+    let content='';
+    if(t.revealed){
+      cls+=t.type+'T ';
+      if(t.bonus)cls+='bonus ';
+      content=t.type==='cache'?icons.cache:t.type==='hazard'?icons.hazard:t.type==='empty'?icons.empty:icons[t.type];
+      if(t.qty>1) content+=`<small style="position:absolute;right:7px;bottom:5px;font-size:12px">x${t.qty}</small>`;
+      if(t.bonus) content+='<span class="spark"></span>';
+    }
+    return `<button class="${cls}" onclick="revealTile(${i})" ${t.revealed||run.picks<=0||run.tool<=0?'disabled':''}>${content}</button>`;
+  }).join('');
+  document.getElementById('picksLeft').textContent=run.picks;
+  document.getElementById('toolCond').textContent=Math.round(run.tool)+'%';
+  document.getElementById('tilesFound').textContent=run.revealed;
+  document.getElementById('runTotal').textContent=total(run.found);
+  document.getElementById('runLog').innerHTML=run.log.slice(-8).reverse().map(x=>`<p>${x}</p>`).join('');
+  document.getElementById('claimBtn').disabled=total(run.found)<=0;
+  renderGoals();
+}
+function renderGoals(){const run=state.run; if(!run)return; const goals=runGoalResults(run); document.getElementById('goalPanel').innerHTML=goals.map(g=>`<div class="goal ${g.done?'done':''}">${g.done?'✓':'•'} ${g.label}</div>`).join('');}
 function goalDone(locationId,run){if(locationId==='garage') return (run.found.gears+run.found.batteries)>=3; if(locationId==='appliance') return run.found.wiring>=4; return total(run.found)>=10;}
-function openSummary(){if(!state.run || total(state.run.found)<=0)return; const run=state.run, loc=locations[run.location]||locations.junkyard; document.getElementById('summaryText').textContent=`${loc.name} complete: ${total(run.found)} salvage recovered from ${run.revealed} tiles.`; document.getElementById('summaryResources').innerHTML=resourceHTML(run.found); document.getElementById('summaryStats').innerHTML=`<div class="goal">Location: <b>${loc.name}</b></div><div class="goal">Caches: <b>${run.caches}</b> · Hazards: <b>${run.hazards}</b> · Empty: <b>${run.empties}</b></div><div class="goal">Best single find: <b>${run.bestFind}</b> · Tool left: <b>${Math.round(run.tool)}%</b></div>`; document.getElementById('summary').classList.add('show');}
+function runGoalResults(run){
+  return [
+    {label:(locations[run.location]||locations.junkyard).goal,done:goalDone(run.location,run)},
+    {label:'Recover at least 8 total salvage',done:total(run.found)>=8},
+    {label:'Keep tool above 50%',done:run.tool>50}
+  ];
+}
+function runGoalBonus(run){
+  const completed=runGoalResults(run).filter(g=>g.done).length;
+  if(completed<=0)return {completed,bonus:{scrap:0,gears:0,wiring:0,batteries:0}};
+  const bonus={scrap:completed};
+  if(completed>=2) bonus.gears=1;
+  if(completed>=3) bonus.wiring=1;
+  return {completed,bonus};
+}
+function openSummary(){
+  if(!state.run || total(state.run.found)<=0)return;
+  const run=state.run, loc=locations[run.location]||locations.junkyard;
+  document.getElementById('summaryText').textContent=`${loc.name} complete: ${total(run.found)} salvage recovered from ${run.revealed} tiles.`;
+  document.getElementById('summaryResources').innerHTML=resourceHTML(run.found);
+  const goalBonus=runGoalBonus(run);
+  document.getElementById('summaryStats').innerHTML=`<div class="goal">Location: <b>${loc.name}</b></div><div class="goal">Caches: <b>${run.caches}</b> · Hazards: <b>${run.hazards}</b> · Empty: <b>${run.empties}</b></div><div class="goal">Best single find: <b>${run.bestFind}</b> · Tool left: <b>${Math.round(run.tool)}%</b></div><div class="goal ${goalBonus.completed?'done':''}">Run goals complete: <b>${goalBonus.completed}/3</b> · Bonus: <b>${fmtReward(goalBonus.bonus)}</b></div>`;
+  document.getElementById('doubleAdBtn').disabled=run.adDoubled;
+  document.getElementById('doubleAdBtn').textContent=run.adDoubled?'Mock Ad Claimed: Salvage Doubled':'Mock Rewarded Ad: Double Salvage';
+  document.getElementById('summary').classList.add('show');
+}
 function closeSummary(){document.getElementById('summary').classList.remove('show')}
-function claimRun(){if(!state.run)return; const gained={...state.run.found}; const locName=(locations[state.run.location]||locations.junkyard).name; addResources(gained); degradeRooms(); state.baseLog.push(`Claimed ${total(gained)} salvage from ${locName}. Base systems wore down after the run.`); const [id,r]=mostUrgentRoom(); if(r.condition<60) state.baseLog.push(`Repair prompt: ${r.name} is now at ${Math.round(r.condition)}%.`); state.run=null; closeSummary(); showScreen('base'); save(); render();}
-function render(){renderResources();renderRooms();renderLog();renderSalvage();save();}
+function mockDoubleSalvage(){
+  if(!state.run||state.run.adDoubled)return;
+  RES.forEach(k=>state.run.found[k]*=2);
+  state.run.adDoubled=true;
+  state.stats.mockAds++;
+  state.stats.doubleAds++;
+  state.run.log.push('Mock rewarded ad watched: salvage doubled.');
+  openSummary();
+  save();
+}
+function claimRun(){
+  if(!state.run)return;
+  const goalBonus=runGoalBonus(state.run);
+  const gained={...state.run.found};
+  addResources(goalBonus.bonus);
+  const locName=(locations[state.run.location]||locations.junkyard).name;
+  addResources(gained);
+  degradeRooms();
+  state.stats.runs++;
+  if(goalBonus.completed){
+    state.stats.goalBonuses++;
+    state.baseLog.push(`Run goal bonus earned: ${goalBonus.completed}/3 goals, +${fmtReward(goalBonus.bonus)}.`);
+  }
+  state.stats.bestRun=Math.max(state.stats.bestRun,total(gained));
+  state.baseLog.push(`Claimed ${total(gained)} salvage from ${locName}. Base systems wore down after the run.`);
+  const [id,r]=mostUrgentRoom();
+  if(r.condition<60) state.baseLog.push(`Repair prompt: ${r.name} is now at ${Math.round(r.condition)}%.`);
+  state.run=null;
+  closeSummary();
+  showScreen('base');
+  save();
+  render();
+}
+function render(){updateAchievements();renderResources();renderDaily();renderRooms();renderLog();renderSalvage();renderMetrics();renderAchievements();save();}
 load();render();
 </script>
 </body>
