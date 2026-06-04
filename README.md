@@ -49,6 +49,8 @@ This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgr
 ## Notes
 The displayed in-game version matches this folder/zip version: v0.26.06.04.0800.
 
+Future ideas that should stay out of the MVP until the loop is proven are tracked in [BACKLOG.md](BACKLOG.md).
+
 ## Smoke test
 Run this from the project folder with the bundled Codex Node runtime or any recent Node install:
 
