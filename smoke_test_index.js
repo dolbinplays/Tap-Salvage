@@ -41,6 +41,7 @@ global.document = {
 
 const test = `
 showScreen('salvage');
+selectLocation('sensor');
 for(let i=0;i<8;i++) revealTile(i);
 openSummary();
 mockDoubleSalvage();
@@ -53,6 +54,8 @@ if(state.stats.runs !== 1) throw new Error('run counter failed');
 if(state.stats.doubleAds !== 1) throw new Error('double ad counter failed');
 if(state.stats.mockAds < 2) throw new Error('mock ad counter failed');
 if(state.stats.dailyCrates !== 1) throw new Error('daily crate counter failed');
+toggleMute();
+if(!state.muted) throw new Error('mute toggle failed');
 if(!document.getElementById('metricsPanel').innerHTML.includes('Best run')) throw new Error('metrics did not render');
 if(!document.getElementById('achievementsPanel').innerHTML.includes('First Haul')) throw new Error('achievements did not render');
 console.log('smoke test passed');

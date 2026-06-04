@@ -1,6 +1,13 @@
-# Scrap Shelter Lite v0.26.06.04.0700 - Stage 1C Streak Feedback
+# Scrap Shelter Lite v0.26.06.04.0800 - Stage 1C Hazard Hints
 
 This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgrade loop and replaces the complex block-placement puzzle with a simple tap-to-salvage grid.
+
+## Stage 1C hazard hint additions
+- New Sensor Yard salvage location for a contained Minesweeper-lite test
+- Clue tiles show nearby rust hazard counts when revealed
+- Sensor Yard run goal rewards revealing 2+ clue tiles
+- Clue metric and Clue Chaser achievement
+- Sound on/off toggle for testing audio fatigue
 
 ## Stage 1C streak feedback additions
 - Generated Web Audio clinks, chimes, and buzzes for salvage reveals
@@ -40,7 +47,7 @@ This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgr
 5. Repair and upgrade Workshop, Generator, and Water Filter.
 
 ## Notes
-The displayed in-game version matches this folder/zip version: v0.26.06.04.0700.
+The displayed in-game version matches this folder/zip version: v0.26.06.04.0800.
 
 ## Smoke test
 Run this from the project folder with the bundled Codex Node runtime or any recent Node install:

@@ -54,6 +54,7 @@
         <h2 class="section-title">Inventory</h2>
         <div class="resources" id="resourcePanel"></div>
         <button class="primary" onclick="showScreen('salvage')">Start Salvage Run</button>
+        <button id="muteBtn" onclick="toggleMute()">Sound On</button>
         <div id="dailyPanel"></div>
         <button class="adbutton" onclick="mockEmergencyCrate()">Mock Rewarded Ad: Emergency Crate</button>
         <h2 class="section-title" style="margin-top:18px">Base Notes</h2>
@@ -125,7 +126,7 @@
 </div>
 
 <script>
-const VERSION = 'v0.26.06.04.0700';
+const VERSION = 'v0.26.06.04.0800';
 const SAVE_KEY = 'scrapShelterLite_'+VERSION;
 const RES = ['scrap','gears','wiring','batteries'];
 const icons = {scrap:'▣',gears:'⚙',wiring:'⌁',batteries:'▮',hazard:'⚠',cache:'★',empty:'·'};
@@ -133,7 +134,8 @@ const names = {scrap:'Scrap',gears:'Gears',wiring:'Wiring',batteries:'Batteries'
 const locations = {
   junkyard:{name:'Junk Pile',desc:'Balanced parts. Safer starter run.',picks:15,tool:100,deck:{scrap:9,gears:4,wiring:4,batteries:3,cache:3,hazard:2,empty:0},goal:'Find at least 10 total salvage.'},
   garage:{name:'Abandoned Garage',desc:'More gears and batteries. More rust.',picks:14,tool:96,deck:{scrap:6,gears:6,wiring:3,batteries:4,cache:3,hazard:3,empty:0},goal:'Find 3+ Gears or Batteries.'},
-  appliance:{name:'Appliance Heap',desc:'More wiring. Some dead tiles.',picks:16,tool:100,deck:{scrap:6,gears:3,wiring:7,batteries:3,cache:2,hazard:2,empty:2},goal:'Find 4+ Wiring.'}
+  appliance:{name:'Appliance Heap',desc:'More wiring. Some dead tiles.',picks:16,tool:100,deck:{scrap:6,gears:3,wiring:7,batteries:3,cache:2,hazard:2,empty:2},goal:'Find 4+ Wiring.'},
+  sensor:{name:'Sensor Yard',desc:'Clue tiles show nearby rust hazards.',picks:15,tool:98,deck:{scrap:6,gears:4,wiring:4,batteries:3,cache:2,hazard:4,empty:2},hints:4,goal:'Reveal 2+ clue tiles.'}
 };
 const defaultState = {
   resources:{scrap:10,gears:2,wiring:2,batteries:1},
@@ -143,9 +145,10 @@ const defaultState = {
     generator:{name:'Generator',level:1,condition:72,desc:'Powers the base. Low condition makes all systems unstable.',repair:{scrap:5,gears:2,wiring:1,batteries:1},upgrade:{scrap:22,gears:7,wiring:5,batteries:3}},
     water:{name:'Water Filter',level:1,condition:76,desc:'Keeps survivors stable. Low condition reduces morale.',repair:{scrap:4,wiring:2,batteries:1},upgrade:{scrap:20,gears:3,wiring:6,batteries:2}}
   },
-  stats:{runs:0,repairs:0,upgrades:0,mockAds:0,doubleAds:0,crates:0,bestRun:0,goalBonuses:0,dailyCrates:0},
+  stats:{runs:0,repairs:0,upgrades:0,mockAds:0,doubleAds:0,crates:0,bestRun:0,goalBonuses:0,dailyCrates:0,hints:0},
   achievements:{},
   lastDaily:'',
+  muted:false,
   baseLog:['Lite Stage 1C started: daily hooks, achievements, run bonuses, and test metrics added.'],
   run:null
 };
@@ -195,6 +198,7 @@ function tone(freq,duration=.08,type='square',gain=.045,delay=0){
   osc.stop(start+duration+.03);
 }
 function playSfx(type){
+  if(state.muted)return;
   if(type==='resource'){tone(420,.055,'triangle',.025);tone(620,.06,'triangle',.018,.045);}
   if(type==='cache'){[520,660,840,1040].forEach((f,i)=>tone(f,.075,'triangle',.035,i*.055));}
   if(type==='hazard'){tone(130,.12,'sawtooth',.04);tone(88,.16,'square',.025,.06);}
@@ -202,6 +206,7 @@ function playSfx(type){
   if(type==='streak'){[660,830,990,1320].forEach((f,i)=>tone(f,.075,'square',.04,i*.045));}
   if(type==='bonus'){[440,660,880,1320].forEach((f,i)=>tone(f,.09,'triangle',.045,i*.07));}
   if(type==='crate'){[320,480,640].forEach((f,i)=>tone(f,.08,'triangle',.035,i*.06));}
+  if(type==='hint'){tone(740,.06,'sine',.025);tone(920,.07,'triangle',.02,.045);}
 }
 function pulseBanner(){
   const el=document.getElementById('revealBanner');
@@ -216,6 +221,7 @@ function migrateState(){
   state.stats = {...defaultState.stats,...(state.stats||{})};
   state.achievements = {...(state.achievements||{})};
   state.lastDaily = state.lastDaily || '';
+  state.muted = !!state.muted;
   state.baseLog = Array.isArray(state.baseLog)&&state.baseLog.length?state.baseLog:defaultState.baseLog.slice();
   state.selectedLocation = state.selectedLocation || 'junkyard';
   if(state.run) state.run = null;
@@ -226,6 +232,8 @@ document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>show
 
 function resourceHTML(source){return RES.map(k=>`<div class="res"><b>${icons[k]} ${names[k]}</b><span class="${k}">${source[k]||0}</span></div>`).join('');}
 function renderResources(){document.getElementById('resourcePanel').innerHTML=resourceHTML(state.resources);document.getElementById('inventoryPanel').innerHTML=resourceHTML(state.resources); if(state.run)document.getElementById('runResourcePanel').innerHTML=resourceHTML(state.run.found);}
+function renderAudioControls(){document.getElementById('muteBtn').textContent=state.muted?'Sound Off':'Sound On';}
+function toggleMute(){state.muted=!state.muted; save(); renderAudioControls();}
 function mostUrgentRoom(){return Object.entries(state.rooms).sort((a,b)=>a[1].condition-b[1].condition)[0];}
 function renderUrgentPrompt(){
   const [id,r]=mostUrgentRoom();
@@ -271,7 +279,8 @@ function renderMetrics(){
     ['Doubles',state.stats.doubleAds],
     ['Best run',state.stats.bestRun],
     ['Goal bonuses',state.stats.goalBonuses],
-    ['Daily crates',state.stats.dailyCrates]
+    ['Daily crates',state.stats.dailyCrates],
+    ['Clues',state.stats.hints]
   ];
   el.innerHTML=metrics.map(([k,v])=>`<div class="metric"><b>${k}</b><span>${v}</span></div>`).join('');
 }
@@ -283,7 +292,8 @@ function achievementList(){
     {id:'first_upgrade',label:'Better Than Before',done:state.stats.upgrades>=1},
     {id:'big_haul',label:'Heavy Pockets',done:state.stats.bestRun>=20},
     {id:'ad_tester',label:'Optional Boost Tested',done:state.stats.mockAds>=1},
-    {id:'daily_checkin',label:'Checked In Today',done:state.stats.dailyCrates>=1}
+    {id:'daily_checkin',label:'Checked In Today',done:state.stats.dailyCrates>=1},
+    {id:'clue_chaser',label:'Clue Chaser',done:state.stats.hints>=3}
   ];
 }
 function updateAchievements(){
@@ -366,12 +376,34 @@ function resetPrototype(){
 }
 function selectLocation(id){if(state.run && state.run.revealed>0){if(!confirm('Start a new run at this location and abandon current unclaimed salvage?')) return;} state.selectedLocation=id; newRun(false);}
 function renderLocations(){const el=document.getElementById('locationPanel'); el.innerHTML=Object.entries(locations).map(([id,l])=>`<button class="loc ${state.selectedLocation===id?'active':''}" onclick="selectLocation('${id}')"><b>${l.name}</b><small>${l.desc}</small></button>`).join('');}
+function adjacentIndices(i){
+  const row=Math.floor(i/5), col=i%5, out=[];
+  for(let dr=-1;dr<=1;dr++){
+    for(let dc=-1;dc<=1;dc++){
+      if(!dr&&!dc)continue;
+      const nr=row+dr,nc=col+dc;
+      if(nr>=0&&nr<5&&nc>=0&&nc<5)out.push(nr*5+nc);
+    }
+  }
+  return out;
+}
+function applyHintTiles(tiles,loc){
+  const hintCount=loc.hints||0;
+  if(!hintCount)return tiles;
+  const candidates=tiles.filter(t=>!['hazard','cache'].includes(t.type)).sort(()=>Math.random()-.5);
+  candidates.slice(0,hintCount).forEach(tile=>{
+    tile.hint=true;
+    tile.nearHazards=adjacentIndices(tile.id).filter(i=>tiles[i]?.type==='hazard').length;
+  });
+  return tiles;
+}
 function makeDeck(locationId){
   const loc=locations[locationId]||locations.junkyard;
   let deck=[];
   Object.entries(loc.deck).forEach(([type,count])=>{for(let i=0;i<count;i++)deck.push(type)});
   deck=deck.sort(()=>Math.random()-.5);
-  return deck.slice(0,25).map((type,i)=>({id:i,type,revealed:false,qty:0,bonus:false,peek:false}));
+  const tiles=deck.slice(0,25).map((type,i)=>({id:i,type,revealed:false,qty:0,bonus:false,peek:false,hint:false,nearHazards:0}));
+  return applyHintTiles(tiles,loc);
 }
 function markGeneratorPeek(run){
   if(roomLevel('generator')<2)return;
@@ -383,7 +415,7 @@ function markGeneratorPeek(run){
 function newRun(confirmAbandon){
   if(confirmAbandon && state.run && total(state.run.found)>0 && !confirm('Abandon this unclaimed salvage?')) return;
   const loc=locations[state.selectedLocation]||locations.junkyard;
-  state.run={location:state.selectedLocation,picks:loc.picks+workshopPickBonus(),tool:clamp(loc.tool+workshopPickBonus()*2,0,100),found:{scrap:0,gears:0,wiring:0,batteries:0},tiles:makeDeck(state.selectedLocation),revealed:0,hazards:0,caches:0,empties:0,lastType:null,streak:0,bestFind:0,adDoubled:false,summaryCelebrated:false,banner:`${loc.name}: tap junk tiles to uncover salvage.`,log:[`${loc.name} run started. ${loc.goal}`]};
+  state.run={location:state.selectedLocation,picks:loc.picks+workshopPickBonus(),tool:clamp(loc.tool+workshopPickBonus()*2,0,100),found:{scrap:0,gears:0,wiring:0,batteries:0},tiles:makeDeck(state.selectedLocation),revealed:0,hazards:0,caches:0,empties:0,hints:0,lastType:null,streak:0,bestFind:0,adDoubled:false,summaryCelebrated:false,banner:`${loc.name}: tap junk tiles to uncover salvage.`,log:[`${loc.name} run started. ${loc.goal}`]};
   markGeneratorPeek(state.run);
   render();
 }
@@ -421,6 +453,13 @@ function revealTile(i){
     else{msg=`${icons[tile.type]} +${qty} ${names[tile.type]}.`; banner=`Recovered +${qty} ${names[tile.type]}.`; playSfx('resource');}
     tile.qty=qty; run.found[tile.type]+=qty; gained=qty; run.bestFind=Math.max(run.bestFind,gained);
   }
+  if(tile.hint){
+    run.hints++;
+    state.stats.hints++;
+    run.log.push(`⌁ Clue: ${tile.nearHazards} rust hazard(s) nearby.`);
+    banner+=` Clue: ${tile.nearHazards} nearby hazard(s).`;
+    playSfx('hint');
+  }
   run.banner=banner;
   run.log.push(msg);
   if(run.picks<=0) run.log.push('No picks left. Claim salvage or start a new run.');
@@ -438,7 +477,7 @@ function renderSalvage(){
     if(t.revealed){
       cls+=t.type+'T ';
       if(t.bonus)cls+='bonus ';
-      content=t.type==='cache'?icons.cache:t.type==='hazard'?icons.hazard:t.type==='empty'?icons.empty:icons[t.type];
+      content=t.hint?`⌁${t.nearHazards}`:t.type==='cache'?icons.cache:t.type==='hazard'?icons.hazard:t.type==='empty'?icons.empty:icons[t.type];
       if(t.qty>1) content+=`<small style="position:absolute;right:7px;bottom:5px;font-size:12px">x${t.qty}</small>`;
       if(t.bonus) content+='<span class="spark"></span>';
     }
@@ -453,7 +492,7 @@ function renderSalvage(){
   renderGoals();
 }
 function renderGoals(){const run=state.run; if(!run)return; const goals=runGoalResults(run); document.getElementById('goalPanel').innerHTML=goals.map(g=>`<div class="goal ${g.done?'done':''}">${g.done?'✓':'•'} ${g.label}</div>`).join('');}
-function goalDone(locationId,run){if(locationId==='garage') return (run.found.gears+run.found.batteries)>=3; if(locationId==='appliance') return run.found.wiring>=4; return total(run.found)>=10;}
+function goalDone(locationId,run){if(locationId==='garage') return (run.found.gears+run.found.batteries)>=3; if(locationId==='appliance') return run.found.wiring>=4; if(locationId==='sensor') return run.hints>=2; return total(run.found)>=10;}
 function runGoalResults(run){
   return [
     {label:(locations[run.location]||locations.junkyard).goal,done:goalDone(run.location,run)},
@@ -475,7 +514,7 @@ function openSummary(){
   document.getElementById('summaryText').textContent=`${loc.name} complete: ${total(run.found)} salvage recovered from ${run.revealed} tiles.`;
   document.getElementById('summaryResources').innerHTML=resourceHTML(run.found);
   const goalBonus=runGoalBonus(run);
-  document.getElementById('summaryStats').innerHTML=`<div class="goal">Location: <b>${loc.name}</b></div><div class="goal">Caches: <b>${run.caches}</b> · Hazards: <b>${run.hazards}</b> · Empty: <b>${run.empties}</b></div><div class="goal">Best single find: <b>${run.bestFind}</b> · Tool left: <b>${Math.round(run.tool)}%</b></div><div class="goal ${goalBonus.completed?'done':''}">Run goals complete: <b>${goalBonus.completed}/3</b> · Bonus: <b>${fmtReward(goalBonus.bonus)}</b></div>`;
+  document.getElementById('summaryStats').innerHTML=`<div class="goal">Location: <b>${loc.name}</b></div><div class="goal">Caches: <b>${run.caches}</b> · Hazards: <b>${run.hazards}</b> · Empty: <b>${run.empties}</b> · Clues: <b>${run.hints}</b></div><div class="goal">Best single find: <b>${run.bestFind}</b> · Tool left: <b>${Math.round(run.tool)}%</b></div><div class="goal ${goalBonus.completed?'done':''}">Run goals complete: <b>${goalBonus.completed}/3</b> · Bonus: <b>${fmtReward(goalBonus.bonus)}</b></div>`;
   document.getElementById('summaryStats').classList.toggle('summaryStatsWin',goalBonus.completed>0);
   if(goalBonus.completed&&!run.summaryCelebrated){playSfx('bonus'); run.summaryCelebrated=true;}
   document.getElementById('doubleAdBtn').disabled=run.adDoubled;
@@ -516,7 +555,7 @@ function claimRun(){
   save();
   render();
 }
-function render(){updateAchievements();renderResources();renderDaily();renderRooms();renderLog();renderSalvage();renderMetrics();renderAchievements();save();}
+function render(){updateAchievements();renderResources();renderAudioControls();renderDaily();renderRooms();renderLog();renderSalvage();renderMetrics();renderAchievements();save();}
 load();render();
 </script>
 </body>
