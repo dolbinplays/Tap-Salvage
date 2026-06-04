@@ -24,13 +24,16 @@
 .metric{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:14px;padding:9px}
 .metric b{display:block;color:var(--muted);font-size:11px}
 .metric span{font-size:20px;font-weight:950}
+.reveal-banner.win{animation:bannerWin .42s ease;box-shadow:0 0 0 2px rgba(255,211,110,.35),0 0 26px rgba(255,211,110,.20)}
+.summaryStatsWin{animation:bannerWin .48s ease}
+@keyframes bannerWin{0%{transform:scale(.98)}45%{transform:scale(1.025)}100%{transform:scale(1)}}
 </style>
 </head>
 <body>
 <div class="app">
   <header class="top">
     <div class="brand"><h1>Scrap Shelter Lite</h1><p>Tap-to-salvage MVP branch: faster Android ROI test.</p></div>
-    <div class="version" id="versionLabel">v0.26.06.04.0600 · Stage 1C Daily Hooks</div>
+    <div class="version" id="versionLabel">v0.26.06.04.0700 · Stage 1C Streak Feedback</div>
   </header>
   <nav class="tabs">
     <button class="tab active" data-screen="base">Base</button>
@@ -122,7 +125,7 @@
 </div>
 
 <script>
-const VERSION = 'v0.26.06.04.0600';
+const VERSION = 'v0.26.06.04.0700';
 const SAVE_KEY = 'scrapShelterLite_'+VERSION;
 const RES = ['scrap','gears','wiring','batteries'];
 const icons = {scrap:'▣',gears:'⚙',wiring:'⌁',batteries:'▮',hazard:'⚠',cache:'★',empty:'·'};
@@ -148,6 +151,7 @@ const defaultState = {
 };
 function clone(obj){return JSON.parse(JSON.stringify(obj));}
 let state = clone(defaultState);
+let audioCtx=null;
 
 function clamp(n,min,max){return Math.max(min,Math.min(max,n));}
 function fmtCost(cost){return Object.entries(cost).map(([k,v])=>`${v} ${names[k]}`).join(' · ');}
@@ -166,6 +170,45 @@ function repairBoost(){return 32+roomLevel('workshop')*3;}
 function todayKey(){return new Date().toISOString().slice(0,10);}
 function dailyReady(){return state.lastDaily!==todayKey();}
 function save(){localStorage.setItem(SAVE_KEY,JSON.stringify(state));}
+function audio(){
+  if(!audioCtx){
+    const AudioContext=window.AudioContext||window.webkitAudioContext;
+    if(!AudioContext)return null;
+    audioCtx=new AudioContext();
+  }
+  if(audioCtx.state==='suspended') audioCtx.resume();
+  return audioCtx;
+}
+function tone(freq,duration=.08,type='square',gain=.045,delay=0){
+  const ctx=audio();
+  if(!ctx)return;
+  const osc=ctx.createOscillator();
+  const amp=ctx.createGain();
+  const start=ctx.currentTime+delay;
+  osc.type=type;
+  osc.frequency.setValueAtTime(freq,start);
+  amp.gain.setValueAtTime(0,start);
+  amp.gain.linearRampToValueAtTime(gain,start+.01);
+  amp.gain.exponentialRampToValueAtTime(.001,start+duration);
+  osc.connect(amp).connect(ctx.destination);
+  osc.start(start);
+  osc.stop(start+duration+.03);
+}
+function playSfx(type){
+  if(type==='resource'){tone(420,.055,'triangle',.025);tone(620,.06,'triangle',.018,.045);}
+  if(type==='cache'){[520,660,840,1040].forEach((f,i)=>tone(f,.075,'triangle',.035,i*.055));}
+  if(type==='hazard'){tone(130,.12,'sawtooth',.04);tone(88,.16,'square',.025,.06);}
+  if(type==='empty'){tone(190,.04,'sine',.015);}
+  if(type==='streak'){[660,830,990,1320].forEach((f,i)=>tone(f,.075,'square',.04,i*.045));}
+  if(type==='bonus'){[440,660,880,1320].forEach((f,i)=>tone(f,.09,'triangle',.045,i*.07));}
+  if(type==='crate'){[320,480,640].forEach((f,i)=>tone(f,.08,'triangle',.035,i*.06));}
+}
+function pulseBanner(){
+  const el=document.getElementById('revealBanner');
+  el.classList.remove('win');
+  void el.offsetWidth;
+  el.classList.add('win');
+}
 function migrateState(){
   state.resources = {...defaultState.resources,...(state.resources||{})};
   state.rooms = {...defaultState.rooms,...(state.rooms||{})};
@@ -298,6 +341,7 @@ function mockEmergencyCrate(){
   state.stats.mockAds++;
   state.stats.crates++;
   state.baseLog.push(`Mock ad crate opened for ${r.name}: +${total(crate)} parts.`);
+  playSfx('crate');
   save();
   render();
 }
@@ -309,6 +353,7 @@ function claimDailyCrate(){
   state.stats.dailyCrates++;
   state.baseLog.push(`Daily salvage crate claimed: +${total(crate)} parts.`);
   updateAchievements();
+  playSfx('crate');
   save();
   render();
 }
@@ -338,7 +383,7 @@ function markGeneratorPeek(run){
 function newRun(confirmAbandon){
   if(confirmAbandon && state.run && total(state.run.found)>0 && !confirm('Abandon this unclaimed salvage?')) return;
   const loc=locations[state.selectedLocation]||locations.junkyard;
-  state.run={location:state.selectedLocation,picks:loc.picks+workshopPickBonus(),tool:clamp(loc.tool+workshopPickBonus()*2,0,100),found:{scrap:0,gears:0,wiring:0,batteries:0},tiles:makeDeck(state.selectedLocation),revealed:0,hazards:0,caches:0,empties:0,lastType:null,streak:0,bestFind:0,adDoubled:false,banner:`${loc.name}: tap junk tiles to uncover salvage.`,log:[`${loc.name} run started. ${loc.goal}`]};
+  state.run={location:state.selectedLocation,picks:loc.picks+workshopPickBonus(),tool:clamp(loc.tool+workshopPickBonus()*2,0,100),found:{scrap:0,gears:0,wiring:0,batteries:0},tiles:makeDeck(state.selectedLocation),revealed:0,hazards:0,caches:0,empties:0,lastType:null,streak:0,bestFind:0,adDoubled:false,summaryCelebrated:false,banner:`${loc.name}: tap junk tiles to uncover salvage.`,log:[`${loc.name} run started. ${loc.goal}`]};
   markGeneratorPeek(state.run);
   render();
 }
@@ -353,10 +398,12 @@ function revealTile(i){
     run.hazards++; run.streak=0; run.lastType=null;
     msg=`⚠ Rust snag! Tool condition dropped ${damage}%.`;
     banner=`Rust snag! Tool takes ${damage}% damage.`;
+    playSfx('hazard');
   } else if(tile.type==='empty'){
     run.empties++; run.streak=0; run.lastType=null;
     msg='· Dead junk. Nothing useful here.';
     banner='Dead junk. No parts recovered.';
+    playSfx('empty');
   } else if(tile.type==='cache'){
     const rewards={scrap:2+rand(3),gears:rand(2),wiring:rand(2),batteries:rand(2)};
     RES.forEach(k=>run.found[k]+=rewards[k]);
@@ -364,12 +411,14 @@ function revealTile(i){
     run.streak=0; run.lastType=null;
     msg=`★ Cache found: +${gained} mixed parts.`;
     banner=`Cache found! +${gained} mixed parts.`;
+    playSfx('cache');
+    pulseBanner();
   } else {
     let qty= tile.type==='scrap'? 1+rand(3) : 1;
     if(Math.random()<0.20) qty++;
     if(run.lastType===tile.type){run.streak++;}else{run.streak=1;run.lastType=tile.type;}
-    if(run.streak>=3){qty++; tile.bonus=true; msg=`${icons[tile.type]} +${qty} ${names[tile.type]} · streak bonus!`; banner=`Streak bonus! +${qty} ${names[tile.type]}.`;}
-    else{msg=`${icons[tile.type]} +${qty} ${names[tile.type]}.`; banner=`Recovered +${qty} ${names[tile.type]}.`;}
+    if(run.streak>=3){qty++; tile.bonus=true; msg=`${icons[tile.type]} +${qty} ${names[tile.type]} · streak bonus!`; banner=`Streak bonus! +${qty} ${names[tile.type]}.`; playSfx('streak'); pulseBanner();}
+    else{msg=`${icons[tile.type]} +${qty} ${names[tile.type]}.`; banner=`Recovered +${qty} ${names[tile.type]}.`; playSfx('resource');}
     tile.qty=qty; run.found[tile.type]+=qty; gained=qty; run.bestFind=Math.max(run.bestFind,gained);
   }
   run.banner=banner;
@@ -427,6 +476,8 @@ function openSummary(){
   document.getElementById('summaryResources').innerHTML=resourceHTML(run.found);
   const goalBonus=runGoalBonus(run);
   document.getElementById('summaryStats').innerHTML=`<div class="goal">Location: <b>${loc.name}</b></div><div class="goal">Caches: <b>${run.caches}</b> · Hazards: <b>${run.hazards}</b> · Empty: <b>${run.empties}</b></div><div class="goal">Best single find: <b>${run.bestFind}</b> · Tool left: <b>${Math.round(run.tool)}%</b></div><div class="goal ${goalBonus.completed?'done':''}">Run goals complete: <b>${goalBonus.completed}/3</b> · Bonus: <b>${fmtReward(goalBonus.bonus)}</b></div>`;
+  document.getElementById('summaryStats').classList.toggle('summaryStatsWin',goalBonus.completed>0);
+  if(goalBonus.completed&&!run.summaryCelebrated){playSfx('bonus'); run.summaryCelebrated=true;}
   document.getElementById('doubleAdBtn').disabled=run.adDoubled;
   document.getElementById('doubleAdBtn').textContent=run.adDoubled?'Mock Ad Claimed: Salvage Doubled':'Mock Rewarded Ad: Double Salvage';
   document.getElementById('summary').classList.add('show');

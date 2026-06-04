@@ -22,6 +22,7 @@ global.localStorage = {
 };
 global.confirm = () => true;
 global.console = console;
+global.window = {};
 global.document = {
   getElementById(id){
     if(!elements.has(id)) elements.set(id, makeElement(id));

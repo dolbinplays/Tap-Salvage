@@ -1,6 +1,12 @@
-# Scrap Shelter Lite v0.26.06.04.0600 - Stage 1C Daily Hooks
+# Scrap Shelter Lite v0.26.06.04.0700 - Stage 1C Streak Feedback
 
 This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgrade loop and replaces the complex block-placement puzzle with a simple tap-to-salvage grid.
+
+## Stage 1C streak feedback additions
+- Generated Web Audio clinks, chimes, and buzzes for salvage reveals
+- Stronger ascending streak-bonus sound
+- Cache, crate, and run-goal bonus chimes
+- Short visual pulse on streak/cache/summary bonus moments
 
 ## Stage 1C daily hook additions
 - Once-per-day salvage crate for return-session testing
@@ -34,7 +40,7 @@ This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgr
 5. Repair and upgrade Workshop, Generator, and Water Filter.
 
 ## Notes
-The displayed in-game version matches this folder/zip version: v0.26.06.04.0600.
+The displayed in-game version matches this folder/zip version: v0.26.06.04.0700.
 
 ## Smoke test
 Run this from the project folder with the bundled Codex Node runtime or any recent Node install:
