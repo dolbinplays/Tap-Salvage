@@ -1,6 +1,10 @@
-# Scrap Shelter Lite v0.26.06.04.0800 - Stage 1C Hazard Hints
+# Scrap Shelter Lite v0.26.06.04.0810 - Stage 1C Run Intel
 
 This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgrade loop and replaces the complex block-placement puzzle with a simple tap-to-salvage grid.
+
+## Stage 1C run intel additions
+- Salvage sidebar now shows risk, reward bias, hazards, caches, upgrade effects, and clue count
+- Location metadata is visible during runs to make testing and balancing easier
 
 ## Stage 1C hazard hint additions
 - New Sensor Yard salvage location for a contained Minesweeper-lite test
@@ -47,7 +51,7 @@ This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgr
 5. Repair and upgrade Workshop, Generator, and Water Filter.
 
 ## Notes
-The displayed in-game version matches this folder/zip version: v0.26.06.04.0800.
+The displayed in-game version matches this folder/zip version: v0.26.06.04.0810.
 
 Future ideas that should stay out of the MVP until the loop is proven are tracked in [BACKLOG.md](BACKLOG.md).
 

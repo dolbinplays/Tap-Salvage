@@ -33,7 +33,7 @@
 <div class="app">
   <header class="top">
     <div class="brand"><h1>Scrap Shelter Lite</h1><p>Tap-to-salvage MVP branch: faster Android ROI test.</p></div>
-    <div class="version" id="versionLabel">v0.26.06.04.0700 · Stage 1C Streak Feedback</div>
+    <div class="version" id="versionLabel">v0.26.06.04.0810 · Stage 1C Run Intel</div>
   </header>
   <nav class="tabs">
     <button class="tab active" data-screen="base">Base</button>
@@ -88,6 +88,8 @@
           </div>
           <div class="resources" id="runResourcePanel" style="margin-top:10px"></div>
           <div class="adslot">Mock rewarded ad is available on the run summary after you claim a useful haul.</div>
+          <h3>Run Intel</h3>
+          <div class="goal-list" id="runIntelPanel"></div>
           <h3>Run Goals</h3>
           <div class="goal-list" id="goalPanel"></div>
           <h3>Payout Log</h3>
@@ -126,16 +128,16 @@
 </div>
 
 <script>
-const VERSION = 'v0.26.06.04.0800';
+const VERSION = 'v0.26.06.04.0810';
 const SAVE_KEY = 'scrapShelterLite_'+VERSION;
 const RES = ['scrap','gears','wiring','batteries'];
 const icons = {scrap:'▣',gears:'⚙',wiring:'⌁',batteries:'▮',hazard:'⚠',cache:'★',empty:'·'};
 const names = {scrap:'Scrap',gears:'Gears',wiring:'Wiring',batteries:'Batteries'};
 const locations = {
-  junkyard:{name:'Junk Pile',desc:'Balanced parts. Safer starter run.',picks:15,tool:100,deck:{scrap:9,gears:4,wiring:4,batteries:3,cache:3,hazard:2,empty:0},goal:'Find at least 10 total salvage.'},
-  garage:{name:'Abandoned Garage',desc:'More gears and batteries. More rust.',picks:14,tool:96,deck:{scrap:6,gears:6,wiring:3,batteries:4,cache:3,hazard:3,empty:0},goal:'Find 3+ Gears or Batteries.'},
-  appliance:{name:'Appliance Heap',desc:'More wiring. Some dead tiles.',picks:16,tool:100,deck:{scrap:6,gears:3,wiring:7,batteries:3,cache:2,hazard:2,empty:2},goal:'Find 4+ Wiring.'},
-  sensor:{name:'Sensor Yard',desc:'Clue tiles show nearby rust hazards.',picks:15,tool:98,deck:{scrap:6,gears:4,wiring:4,batteries:3,cache:2,hazard:4,empty:2},hints:4,goal:'Reveal 2+ clue tiles.'}
+  junkyard:{name:'Junk Pile',desc:'Balanced parts. Safer starter run.',risk:'Low',bias:'Balanced',picks:15,tool:100,deck:{scrap:9,gears:4,wiring:4,batteries:3,cache:3,hazard:2,empty:0},goal:'Find at least 10 total salvage.'},
+  garage:{name:'Abandoned Garage',desc:'More gears and batteries. More rust.',risk:'Medium',bias:'Gears + Batteries',picks:14,tool:96,deck:{scrap:6,gears:6,wiring:3,batteries:4,cache:3,hazard:3,empty:0},goal:'Find 3+ Gears or Batteries.'},
+  appliance:{name:'Appliance Heap',desc:'More wiring. Some dead tiles.',risk:'Medium-low',bias:'Wiring',picks:16,tool:100,deck:{scrap:6,gears:3,wiring:7,batteries:3,cache:2,hazard:2,empty:2},goal:'Find 4+ Wiring.'},
+  sensor:{name:'Sensor Yard',desc:'Clue tiles show nearby rust hazards.',risk:'Medium-high',bias:'Clues + mixed parts',picks:15,tool:98,deck:{scrap:6,gears:4,wiring:4,batteries:3,cache:2,hazard:4,empty:2},hints:4,goal:'Reveal 2+ clue tiles.'}
 };
 const defaultState = {
   resources:{scrap:10,gears:2,wiring:2,batteries:1},
@@ -489,7 +491,21 @@ function renderSalvage(){
   document.getElementById('runTotal').textContent=total(run.found);
   document.getElementById('runLog').innerHTML=run.log.slice(-8).reverse().map(x=>`<p>${x}</p>`).join('');
   document.getElementById('claimBtn').disabled=total(run.found)<=0;
+  renderRunIntel();
   renderGoals();
+}
+function renderRunIntel(){
+  const run=state.run;
+  if(!run)return;
+  const loc=locations[run.location]||locations.junkyard;
+  const intel=[
+    `Risk: ${loc.risk} · Bias: ${loc.bias}`,
+    `Hazards in pile: ${loc.deck.hazard} · Caches: ${loc.deck.cache}`,
+    `Workshop: +${workshopPickBonus()} picks, -${workshopHazardBlock()} hazard damage`,
+    `Wear reduction: ${Math.round((generatorWearReduction()+waterWearReduction())*100)}%`
+  ];
+  if(loc.hints) intel.push(`Clue tiles: ${loc.hints} hidden tiles show nearby hazards.`);
+  document.getElementById('runIntelPanel').innerHTML=intel.map(x=>`<div class="goal">${x}</div>`).join('');
 }
 function renderGoals(){const run=state.run; if(!run)return; const goals=runGoalResults(run); document.getElementById('goalPanel').innerHTML=goals.map(g=>`<div class="goal ${g.done?'done':''}">${g.done?'✓':'•'} ${g.label}</div>`).join('');}
 function goalDone(locationId,run){if(locationId==='garage') return (run.found.gears+run.found.batteries)>=3; if(locationId==='appliance') return run.found.wiring>=4; if(locationId==='sensor') return run.hints>=2; return total(run.found)>=10;}
