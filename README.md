@@ -1,20 +1,21 @@
-# Scrap Shelter Lite v0.26.06.04.0235 — Tap Salvage MVP
+# Scrap Shelter Lite v0.26.06.04.0318 - Stage 1B Salvage Feedback
 
-This is a simplified branch focused on the original fast Android ROI goal.
+This is the fast-ROI Lite branch of Scrap Shelter. It keeps the base repair/upgrade loop and replaces the complex block-placement puzzle with a simple tap-to-salvage grid.
 
-## What changed
-- Replaces block-placement puzzle with a simple 5x5 tap-to-salvage grid.
-- Keeps the base maintenance loop: salvage parts, claim rewards, repair/upgrade Workshop, Generator, and Water Filter.
-- Includes future rewarded-ad placeholders without real ad integration.
-- Uses a versioned local save key for this Lite branch.
+## Stage 1B additions
+- Salvage location choices: Junk Pile, Abandoned Garage, Appliance Heap
+- Clearer tile reveal feedback and reveal banner
+- Small run goals and streak bonus feedback
+- Better run summary: location, caches, hazards, best find, tool condition
+- Stronger base repair prompts after salvage runs
+- Rewarded-ad placeholders only; no real ad SDK yet
 
-## Test loop
-1. Open Salvage.
-2. Tap junk tiles to uncover resources.
-3. Claim salvage.
-4. Repair or upgrade base rooms.
-5. Repeat.
+## How to play
+1. Start a salvage run.
+2. Pick a salvage location.
+3. Tap hidden tiles to uncover parts, caches, hazards, or empty junk.
+4. Claim salvage and return to the base.
+5. Repair and upgrade Workshop, Generator, and Water Filter.
 
-## Roadmap intent
-Track A: Fast ROI MVP — simple salvage + base loop.
-Track B: Full Game Vision — block-placement puzzle + pliers/grabber mobile placement.
+## Notes
+The displayed in-game version matches this folder/zip version: v0.26.06.04.0318.
